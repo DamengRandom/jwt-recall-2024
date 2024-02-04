@@ -1,6 +1,8 @@
 const JWT = require("jsonwebtoken");
 const createHttpError = require("http-errors");
 
+const client = require("../helpers/init_redis");
+
 require("dotenv").config();
 
 module.exports = {
@@ -21,6 +23,21 @@ module.exports = {
           console.error("JWT Error: ", err);
           reject(createHttpError.InternalServerError(err));
         }
+
+        client.set(
+          userEmail,
+          token,
+          { EX: 365 * 24 * 60 * 60 },
+          (err, reply) => {
+            if (err) {
+              console.error("Redis SET token error: ", err);
+
+              reject(createHttpError.InternalServerError(err));
+
+              return;
+            }
+          }
+        );
 
         resolve(token);
       });

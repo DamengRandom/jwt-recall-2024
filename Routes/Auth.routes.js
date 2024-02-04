@@ -2,6 +2,8 @@ const express = require("express");
 const createHttpError = require("http-errors");
 const bcrypt = require("bcrypt");
 
+const client = require("../helpers/init_redis");
+
 require("dotenv").config();
 
 const mongoClient = require("../helpers/init_mongodb");
@@ -35,7 +37,8 @@ router.post("/register", async (req, res, next) => {
     users.insertOne({ email, password: hashedPassword });
 
     // generate jwt token access token
-    const refreshToken = await signRefreshToken(result.email);
+    const accessToken = await signAccessToken(email);
+    const refreshToken = await signRefreshToken(email);
 
     res.status(201).send({
       message: "User created",
@@ -59,20 +62,20 @@ router.post("/login", async (req, res, next) => {
     // initial mongodb client collection
     const jwtAuthDB = (await mongoClient()).db(process.env.MONGO_DB_NAME);
     const users = jwtAuthDB.collection("user");
-    const existedUser = await users.findOne({ email: result.email });
+    const existedUser = await users.findOne({ email: result?.email });
     // check if user registered already
     if (!existedUser) throw createHttpError.BadRequest("User not found ..");
     // check if user input password is matching with db saved version or not
     const isPasswordMatched = await bcrypt.compare(
-      result.password,
+      result?.password,
       existedUser.password
     );
 
     if (!isPasswordMatched)
       throw createHttpError.Unauthorized("Password incorrect ..");
 
-    const accessToken = await signAccessToken(result.email);
-    const refreshToken = await signRefreshToken(result.email);
+    const accessToken = await signAccessToken(result?.email);
+    const refreshToken = await signRefreshToken(result?.email);
 
     res.send({ accessToken, refreshToken });
   } catch (error) {
@@ -100,12 +103,31 @@ router.post("/refresh-token", async (req, res, next) => {
 
     res.send({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   } catch (error) {
-    res.send(error);
+    console.error("Failed to generate the refresh token ..");
+    res.status(error?.status || 500).send({ error: error.toString() });
   }
 });
 
 router.delete("/logout", async (req, res, next) => {
-  res.send("logout route");
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) throw createHttpError.BadRequest();
+
+    const { user } = await verifyRefreshToken(refreshToken);
+    console.log("User email: ", user);
+
+    client.DEL(user, (err, val) => {
+      if (err) throw createHttpError.InternalServerError();
+
+      console.log("Current token: ", val);
+
+      res.status(204).send({ message: "See you next time ~" });
+    });
+  } catch (error) {
+    console.error("Failed to delete the token and logout ..");
+    res.status(error?.status || 500).send({ error: error.toString() });
+  }
 });
 
 module.exports = router;

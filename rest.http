@@ -12,7 +12,7 @@ POST http://localhost:4673/v1/auth/register
 Content-Type: application/json
 
 {
-  "email": "test5@test2.com",
+  "email": "test9@test3.com",
   "password": "test123"
 }
 
@@ -22,7 +22,7 @@ POST http://localhost:4673/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "test5@test2.com",
+  "email": "test9@test3.com",
   "password": "test123"
 }
 
@@ -39,3 +39,8 @@ Content-Type: application/json
 ### logout route
 
 DELETE http://localhost:4673/v1/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcwNTI4MTEsImV4cCI6MTczODYxMDQxMSwiYXVkIjoidGVzdDlAdGVzdDMuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.R0R_Cvd_X8H-A_jBjucX-FjNAmGMGP4puNsFqmHSo28"
+}
