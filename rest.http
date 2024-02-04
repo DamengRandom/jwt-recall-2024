@@ -1,0 +1,41 @@
+### Test route
+GET http://localhost:4673/v1/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcwNDU0OTEsImV4cCI6MTcwNzA0NTUwNiwiYXVkIjoidGVzdDVAdGVzdDIuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.aunqhNf04yHZgxj6DPoP4K638PpB50yaEsG5b0vkYQg
+
+### Failure case
+
+GET http://localhost:4673/v1/test_failed
+
+### register route
+
+POST http://localhost:4673/v1/auth/register
+Content-Type: application/json
+
+{
+  "email": "test5@test2.com",
+  "password": "test123"
+}
+
+### login route
+
+POST http://localhost:4673/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test5@test2.com",
+  "password": "test123"
+}
+
+
+### refresh token route
+
+POST http://localhost:4673/v1/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcwNDU0NjAsImV4cCI6MTczODYwMzA2MCwiYXVkIjoidGVzdDVAdGVzdDIuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.K7TnTxbM7UoPrkNNKDuOOpglvuna0ghzGb2WX5gG6Mw"
+}
+
+### logout route
+
+DELETE http://localhost:4673/v1/auth/logout
