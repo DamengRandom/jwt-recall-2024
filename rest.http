@@ -1,6 +1,6 @@
 ### Test route
 GET http://localhost:4673/v1/test
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcwNDU0OTEsImV4cCI6MTcwNzA0NTUwNiwiYXVkIjoidGVzdDVAdGVzdDIuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.aunqhNf04yHZgxj6DPoP4K638PpB50yaEsG5b0vkYQg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcxMjU4ODAsImV4cCI6MTcwNzEyNTg5NSwiYXVkIjoidGVzdDVAdGVzdDIuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.4BuxzWKU8I4TzJxEuD18_mXq7zydSuh_G5QBtsEcbHQ
 
 ### Failure case
 
@@ -22,7 +22,7 @@ POST http://localhost:4673/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "test9@test3.com",
+  "email": "test5@test2.com",
   "password": "test123"
 }
 
@@ -33,7 +33,7 @@ POST http://localhost:4673/v1/auth/refresh-token
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcwNDU0NjAsImV4cCI6MTczODYwMzA2MCwiYXVkIjoidGVzdDVAdGVzdDIuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.K7TnTxbM7UoPrkNNKDuOOpglvuna0ghzGb2WX5gG6Mw"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcxMjU4NTEsImV4cCI6MTczODY4MzQ1MSwiYXVkIjoidGVzdDVAdGVzdDIuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.a8rvtj1WsBrWToFBFiEiqpJdweig3JHM3bY-dFq-ED0"
 }
 
 ### logout route
@@ -42,5 +42,8 @@ DELETE http://localhost:4673/v1/auth/logout
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcwNTI4MTEsImV4cCI6MTczODYxMDQxMSwiYXVkIjoidGVzdDlAdGVzdDMuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.R0R_Cvd_X8H-A_jBjucX-FjNAmGMGP4puNsFqmHSo28"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDcxMjU5MDMsImV4cCI6MTczODY4MzUwMywiYXVkIjoidGVzdDVAdGVzdDIuY29tIiwiaXNzIjoiaHR0cHM6Ly9kYW1lbmdyYW5kb20udmVyY2VsLmFwcCJ9.ElKxpPwwdwFPytKCmzqpB4s2uYYjWwfOdDOiRh-SRmA"
 }
+
+# redis-commander: use for redis way to save and verify JWT token
+# redis-cli: you can try locally how to use redis in lcoal environment
